@@ -12,6 +12,7 @@
   <section id="game">
     <h2>Click the Circles!</h2>
     <div id="circle-container"></div>
+    <button id="reset-button">Reset Game</button>
   </section>
 
   <footer>
@@ -21,5 +22,100 @@
   <script src="script.js"></script>
 </body>
 </html>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
+}
 
- 
+header {
+  padding: 20px;
+  background-color: #333;
+  color: white;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+}
+
+#game {
+  padding: 20px;
+  text-align: center;
+}
+
+h2 {
+  color: #333;
+}
+
+#circle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.circle:hover {
+  transform: scale(1.2);
+}
+
+#reset-button {
+  margin-top: 20px;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+footer {
+  padding: 20px;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  font-size: 12px;
+}
+document.addEventListener('DOMContentLoaded', function() {
+  const circleContainer = document.getElementById('circle-container');
+  const resetButton = document.getElementById('reset-button');
+
+  const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
+
+  function createCircle() {
+    const circle = document.createElement('div');
+    circle.classList.add('circle');
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    circle.style.backgroundColor = randomColor;
+
+    circle.addEventListener('click', function() {
+      circle.remove();
+    });
+
+    return circle;
+  }
+
+  function resetGame() {
+    circleContainer.innerHTML = '';
+
+    for (let i = 0; i < 20; i++) {
+      const circle = createCircle();
+      circleContainer.appendChild(circle);
+    }
+  }
+
+  resetButton.addEventListener('click', resetGame);
+
+  resetGame();
+});
